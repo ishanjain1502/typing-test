@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typer</title>
+</head>
+
+<body>
+    <h1>Typing-Test</h1>
+    <br><br>
+    <h3>Try This-</h3>
+    <div class="message"></div>
+    <textarea name="words" cols="90" rows="15" disabled></textarea><br />
+    <button type="button">Start</button>
+
+
+    <script>
+        const wording = ['hello world', 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, sint!', 'How do you wish to challage yourself ?????', ' I just want attention , I just want your heart maybe I just..', 'It took hours and hours of sweet and sorrow and hows the families doing okay,we sittin in taxi, kissin in taxi while driver was radio playin snf now I sing it like , girl you know i want your love , your love was handmade for somebody like me, comin now follow my lead, come-come in now follow my lead, hm hm hm hm']
+        let endTime, startTime;
+        const message = document.querySelector(".message");
+        const playArea = document.querySelector("textarea");
+        const button = document.querySelector("button");
+        button.addEventListener("click", function () {
+
+            if (this.innerText === 'Start') {
+                playArea.disabled = false;
+                playGame();
+            } else if (this.innerText === 'Done') {
+                playArea.disabled = true;
+                button.innerText = "Start";
+                endPlay();
+            }
+        })
+
+        function endPlay() {
+            let date = new Date;
+            endTime = date.getTime();
+            let total = ((endTime - startTime) / 1000);
+
+            let str = playArea.value;
+            let wordCount = wordCounter(str);
+            let speed = Math.round((wordCount / total) * 60);
+
+
+            let finalMessage = "<br><br> You typed at a speed of " + speed + " words/min.";
+            if (str != message.innerHTML) {
+                finalMessage += "<br>There were some errors.";
+            }
+            message.innerHTML += finalMessage;
+        }
+
+        function playGame() {
+            let randomNum = Math.floor(Math.random() * wording.length);
+            message.innerText = wording[randomNum];
+            let date = new Date();
+            startTime = date.getTime();
+
+            button.innerText = "Done";
+            console.log(randomNum);
+        }
+
+        function wordCounter(strWords) {
+            let res = strWords.split(" ").length;
+
+
+            return res;
+        }
+    </script>
+</body>
+
+</html>
